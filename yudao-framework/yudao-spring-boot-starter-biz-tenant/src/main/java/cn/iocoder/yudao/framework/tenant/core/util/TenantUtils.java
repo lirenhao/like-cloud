@@ -2,7 +2,10 @@ package cn.iocoder.yudao.framework.tenant.core.util;
 
 import cn.iocoder.yudao.framework.tenant.core.context.TenantContextHolder;
 
+import java.util.Map;
 import java.util.function.Supplier;
+
+import static cn.iocoder.yudao.framework.web.core.util.WebFrameworkUtils.HEADER_TENANT_ID;
 
 /**
  * 多租户 Util
@@ -73,4 +76,16 @@ public class TenantUtils {
         }
     }
 
+
+    /**
+     * 将多租户编号，添加到 header 中
+     *
+     * @param headers HTTP 请求 headers
+     */
+    public static void addTenantHeader(Map<String, String> headers) {
+        Long tenantId = TenantContextHolder.getTenantId();
+        if (tenantId != null) {
+            headers.put(HEADER_TENANT_ID, tenantId.toString());
+        }
+    }
 }
