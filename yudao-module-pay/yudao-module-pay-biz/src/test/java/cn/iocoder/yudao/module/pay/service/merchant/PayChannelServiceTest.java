@@ -47,13 +47,13 @@ public class PayChannelServiceTest extends BaseDbUnitTest {
     private Validator validator;
 
     @Test
-    public void testCreateWechatVersion2Channel_success() {
+    public void testCreateWechatChannel_success() {
         // 准备参数
-        WxPayClientConfig v2Config = getV2Config();
+        WxPayClientConfig payClientConfig = getWxPayConfig();
         PayChannelCreateReqVO reqVO = randomPojo(PayChannelCreateReqVO.class, o -> {
             o.setCode(PayChannelEnum.WX_PUB.getCode());
             o.setStatus(CommonStatusEnum.ENABLE.getStatus());
-            o.setConfig(JSON.toJSONString(v2Config));
+            o.setConfig(JSON.toJSONString(payClientConfig));
         });
 
         // 调用
@@ -64,28 +64,7 @@ public class PayChannelServiceTest extends BaseDbUnitTest {
         PayChannelDO channel = channelMapper.selectById(channelId);
         assertPojoEquals(reqVO, channel, "config");
         // 关于config 对象应该拿出来重新对比
-        assertPojoEquals(v2Config, channel.getConfig());
-    }
-
-    @Test
-    public void testCreateWechatVersion3Channel_success() {
-        // 准备参数
-        WxPayClientConfig v3Config = getV3Config();
-        PayChannelCreateReqVO reqVO = randomPojo(PayChannelCreateReqVO.class, o -> {
-            o.setCode(PayChannelEnum.WX_PUB.getCode());
-            o.setStatus(CommonStatusEnum.ENABLE.getStatus());
-            o.setConfig(JSON.toJSONString(v3Config));
-        });
-
-        // 调用
-        Long channelId = channelService.createChannel(reqVO);
-        // 断言
-        assertNotNull(channelId);
-        // 校验记录的属性是否正确
-        PayChannelDO channel = channelMapper.selectById(channelId);
-        assertPojoEquals(reqVO, channel, "config");
-        // 关于config 对象应该拿出来重新对比
-        assertPojoEquals(v3Config, channel.getConfig());
+        assertPojoEquals(payClientConfig, channel.getConfig());
     }
 
     @Test
@@ -346,27 +325,13 @@ public class PayChannelServiceTest extends BaseDbUnitTest {
         assertPojoEquals(payClientConfig, list.get(0).getConfig());
     }
 
-    public WxPayClientConfig getV2Config() {
+    public WxPayClientConfig getWxPayConfig() {
         return new WxPayClientConfig()
                 .setAppId("APP00001")
                 .setMchId("MCH00001")
-                .setApiVersion(WxPayClientConfig.API_VERSION_V2)
-                .setMchKey("dsa1d5s6a1d6sa16d1sa56d15a61das6")
-                .setApiV3Key("")
-                .setPrivateCertContent("")
-                .setPrivateKeyContent("");
-    }
-
-    public WxPayClientConfig getV3Config() {
-        return new WxPayClientConfig()
-                .setAppId("APP00001")
-                .setMchId("MCH00001")
-                .setApiVersion(WxPayClientConfig.API_VERSION_V3)
-                .setMchKey("")
-                .setApiV3Key("sdadasdsadadsa")
-                .setPrivateKeyContent("dsa445das415d15asd16ad156as")
-                .setPrivateCertContent("dsadasd45asd4s5a");
-
+                .setMchSerialNo("MchSerialNo")
+                .setPrivateKeyPath("PrivateKeyPath")
+                .setApiV3Key("ApiV3Key");
     }
 
     public AlipayPayClientConfig getPublicKeyConfig() {
