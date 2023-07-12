@@ -4,7 +4,11 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.iocoder.yudao.framework.pay.core.client.AbstractPayCodeMapping;
 import cn.iocoder.yudao.framework.pay.core.client.PayCommonResult;
-import cn.iocoder.yudao.framework.pay.core.client.dto.*;
+import cn.iocoder.yudao.framework.pay.core.client.dto.notify.PayNotifyReqDTO;
+import cn.iocoder.yudao.framework.pay.core.client.dto.notify.PayOrderNotifyRespDTO;
+import cn.iocoder.yudao.framework.pay.core.client.dto.notify.PayRefundNotifyRespDTO;
+import cn.iocoder.yudao.framework.pay.core.client.dto.refund.PayRefundUnifiedReqDTO;
+import cn.iocoder.yudao.framework.pay.core.client.dto.refund.PayRefundUnifiedRespDTO;
 import cn.iocoder.yudao.framework.pay.core.client.impl.AbstractPayClient;
 import cn.iocoder.yudao.framework.pay.core.enums.PayNotifyRefundStatusEnum;
 import com.alipay.api.AlipayApiException;
@@ -24,9 +28,7 @@ import java.util.Map;
 import static cn.iocoder.yudao.framework.common.util.json.JsonUtils.toJsonString;
 
 /**
- * 支付宝抽象类， 实现支付宝统一的接口。如退款
- *
- * @author  jason
+ * 支付宝抽象类，实现支付宝统一的接口。如退款
  */
 @Slf4j
 public abstract class AbstractAlipayClient extends AbstractPayClient<AlipayPayClientConfig> {
@@ -54,7 +56,7 @@ public abstract class AbstractAlipayClient extends AbstractPayClient<AlipayPayCl
      * @throws Exception  解析失败，抛出异常
      */
     @Override
-    public  PayOrderNotifyRespDTO parseOrderNotify(PayNotifyDataDTO data) throws Exception {
+    public PayOrderNotifyRespDTO parseOrderNotify(PayNotifyReqDTO data) throws Exception {
         Map<String, String> params = strToMap(data.getBody());
 
         return  PayOrderNotifyRespDTO.builder().orderExtensionNo(params.get("out_trade_no"))
@@ -65,9 +67,9 @@ public abstract class AbstractAlipayClient extends AbstractPayClient<AlipayPayCl
     }
 
     @Override
-    public PayRefundNotifyDTO parseRefundNotify(PayNotifyDataDTO notifyData) {
+    public PayRefundNotifyRespDTO parseRefundNotify(PayNotifyReqDTO notifyData) {
         Map<String, String> params = strToMap(notifyData.getBody());
-        PayRefundNotifyDTO notifyDTO = PayRefundNotifyDTO.builder().channelOrderNo(params.get("trade_no"))
+        PayRefundNotifyRespDTO notifyDTO = PayRefundNotifyRespDTO.builder().channelOrderNo(params.get("trade_no"))
                 .tradeNo(params.get("out_trade_no"))
                 .reqNo(params.get("out_biz_no"))
                 .status(PayNotifyRefundStatusEnum.SUCCESS)
@@ -77,16 +79,12 @@ public abstract class AbstractAlipayClient extends AbstractPayClient<AlipayPayCl
     }
 
     @Override
-    public boolean isRefundNotify(PayNotifyDataDTO notifyData) {
-        if (notifyData.getParams().containsKey("refund_fee")) {
-            return true;
-        } else {
-            return false;
-        }
+    public boolean isRefundNotify(PayNotifyReqDTO notifyData) {
+        return notifyData.getParams().containsKey("refund_fee");
     }
 
     @Override
-    public boolean verifyNotifyData(PayNotifyDataDTO notifyData) {
+    public boolean verifyNotifyData(PayNotifyReqDTO notifyData) {
         boolean verifyResult = false;
         try {
             verifyResult =  AlipaySignature.rsaCheckV1(notifyData.getParams(), config.getAlipayPublicKey(), StandardCharsets.UTF_8.name(), "RSA2");

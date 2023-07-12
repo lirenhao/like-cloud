@@ -19,6 +19,7 @@ public class PayProperties {
     @NotEmpty(message = "支付回调地址不能为空")
     @URL(message = "支付回调地址的格式必须是 URL")
     private String payNotifyUrl;
+
     /**
      * 退款回调地址
      * 注意点，同 {@link #payNotifyUrl} 属性
@@ -27,12 +28,10 @@ public class PayProperties {
     @URL(message = "退款回调地址的格式必须是 URL")
     private String refundNotifyUrl;
 
-
     /**
      * 支付完成的返回地址
      */
-    @URL(message = "支付返回的地址的格式必须是 URL")
     @NotEmpty(message = "支付返回的地址不能为空")
+    @URL(message = "支付返回的地址的格式必须是 URL")
     private String payReturnUrl;
-
 }

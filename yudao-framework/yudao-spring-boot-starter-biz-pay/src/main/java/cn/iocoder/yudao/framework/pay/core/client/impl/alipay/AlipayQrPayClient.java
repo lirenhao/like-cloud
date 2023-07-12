@@ -1,7 +1,7 @@
 package cn.iocoder.yudao.framework.pay.core.client.impl.alipay;
 
 import cn.iocoder.yudao.framework.pay.core.client.PayCommonResult;
-import cn.iocoder.yudao.framework.pay.core.client.dto.PayOrderUnifiedReqDTO;
+import cn.iocoder.yudao.framework.pay.core.client.dto.order.PayOrderUnifiedReqDTO;
 import cn.iocoder.yudao.framework.pay.core.enums.PayChannelEnum;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.domain.AlipayTradePrecreateModel;
@@ -14,8 +14,6 @@ import static cn.iocoder.yudao.framework.common.util.json.JsonUtils.toJsonString
 /**
  * 支付宝【扫码支付】的 PayClient 实现类
  * 文档：https://opendocs.alipay.com/apis/02890k
- *
- * @author 芋道源码
  */
 @Slf4j
 public class AlipayQrPayClient extends AbstractAlipayClient {

@@ -1,4 +1,4 @@
-package cn.iocoder.yudao.framework.pay.core.client.dto;
+package cn.iocoder.yudao.framework.pay.core.client.dto.order;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -77,5 +77,14 @@ public class PayOrderUnifiedReqDTO {
      * 例如说，微信公众号需要传递 openid 参数
      */
     private Map<String, String> channelExtras;
+
+    /**
+     * 展示模式
+     *
+     * 如果不传递，则每个支付渠道使用默认的方式
+     *
+     * 枚举 {@link PayDisplayModeEnum}
+     */
+    private String displayMode;
 
 }

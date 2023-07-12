@@ -14,7 +14,7 @@ import static cn.iocoder.yudao.framework.pay.core.enums.PayFrameworkErrorCodeCon
  *
  * @author 芋道源码
  */
-public class WXCodeMapping extends AbstractPayCodeMapping {
+public class WxPayCodeMapping extends AbstractPayCodeMapping {
 
     /**
      * 错误码 - 成功

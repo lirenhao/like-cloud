@@ -1,4 +1,4 @@
-package cn.iocoder.yudao.framework.pay.core.client.dto;
+package cn.iocoder.yudao.framework.pay.core.client.dto.notify;
 
 import lombok.Builder;
 import lombok.Data;
@@ -13,17 +13,17 @@ import java.util.Map;
 @Data
 @ToString
 @Builder
-public class PayNotifyDataDTO {
+public class PayNotifyReqDTO {
 
 
     /**
-     *  HTTP 回调接口的 request body
+     * HTTP 回调接口的 request body
      */
     private String body;
-
 
     /**
      * HTTP 回调接口 content type 为 application/x-www-form-urlencoded 的所有参数
      */
     private Map<String,String> params;
+
 }

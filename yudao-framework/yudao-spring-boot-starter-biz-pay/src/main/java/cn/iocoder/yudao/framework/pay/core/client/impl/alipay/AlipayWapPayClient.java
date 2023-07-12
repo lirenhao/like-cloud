@@ -2,7 +2,7 @@ package cn.iocoder.yudao.framework.pay.core.client.impl.alipay;
 
 import cn.hutool.core.date.DateUtil;
 import cn.iocoder.yudao.framework.pay.core.client.PayCommonResult;
-import cn.iocoder.yudao.framework.pay.core.client.dto.PayOrderUnifiedReqDTO;
+import cn.iocoder.yudao.framework.pay.core.client.dto.order.PayOrderUnifiedReqDTO;
 import cn.iocoder.yudao.framework.pay.core.enums.PayChannelEnum;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.domain.AlipayTradeWapPayModel;
@@ -15,8 +15,6 @@ import java.util.Objects;
 /**
  * 支付宝【手机网站】的 PayClient 实现类
  * 文档：https://opendocs.alipay.com/apis/api_1/alipay.trade.wap.pay
- *
- * @author 芋道源码
  */
 @Slf4j
 public class AlipayWapPayClient extends AbstractAlipayClient {
@@ -39,7 +37,7 @@ public class AlipayWapPayClient extends AbstractAlipayClient {
         // TODO 芋艿 似乎这里不用传sellerId
         // https://opendocs.alipay.com/apis/api_1/alipay.trade.wap.pay
         //model.setSellerId("2088102147948060");
-        model.setTimeExpire(DateUtil.format(reqDTO.getExpireTime(),"yyyy-MM-dd HH:mm:ss"));
+        model.setTimeExpire(DateUtil.format(reqDTO.getExpireTime(), "yyyy-MM-dd HH:mm:ss"));
         // TODO 芋艿：userIp
         // 构建 AlipayTradeWapPayRequest
         AlipayTradeWapPayRequest request = new AlipayTradeWapPayRequest();
@@ -56,20 +54,13 @@ public class AlipayWapPayClient extends AbstractAlipayClient {
         }
 
         // TODO 芋艿：sub Code
-        if(response.isSuccess() && Objects.isNull(response.getCode()) && Objects.nonNull(response.getBody())){
+        if (response.isSuccess() && Objects.isNull(response.getCode()) && Objects.nonNull(response.getBody())) {
             //成功alipay wap 成功 code 为 null , body 为form 表单
             return PayCommonResult.build("-9999", "Success", response, codeMapping);
-        }else {
+        } else {
             return PayCommonResult.build(response.getCode(), response.getMsg(), response, codeMapping);
         }
     }
-
-
-
-
-
-
-
 
 
 }

@@ -1,4 +1,4 @@
-package cn.iocoder.yudao.framework.pay.core.client.dto;
+package cn.iocoder.yudao.framework.pay.core.client.dto.notify;
 
 import cn.iocoder.yudao.framework.pay.core.enums.PayNotifyRefundStatusEnum;
 import lombok.Builder;
@@ -15,13 +15,12 @@ import java.time.LocalDateTime;
 @Data
 @ToString
 @Builder
-public class PayRefundNotifyDTO {
+public class PayRefundNotifyRespDTO {
 
     /**
      * 支付渠道编号
      */
     private String channelOrderNo;
-
 
     /**
      * 交易订单号，根据规则生成
@@ -46,18 +45,14 @@ public class PayRefundNotifyDTO {
      */
     private String reqNo;
 
-
     /**
      * 退款是否成功
      */
     private PayNotifyRefundStatusEnum status;
 
-
-
     /**
      * 退款成功时间
      */
     private LocalDateTime refundSuccessTime;
-
 
 }

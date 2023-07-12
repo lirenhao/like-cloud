@@ -1,12 +1,14 @@
 package cn.iocoder.yudao.framework.pay.core.client;
 
-
-import cn.iocoder.yudao.framework.pay.core.client.dto.*;
+import cn.iocoder.yudao.framework.pay.core.client.dto.notify.PayNotifyReqDTO;
+import cn.iocoder.yudao.framework.pay.core.client.dto.notify.PayOrderNotifyRespDTO;
+import cn.iocoder.yudao.framework.pay.core.client.dto.notify.PayRefundNotifyRespDTO;
+import cn.iocoder.yudao.framework.pay.core.client.dto.order.PayOrderUnifiedReqDTO;
+import cn.iocoder.yudao.framework.pay.core.client.dto.refund.PayRefundUnifiedReqDTO;
+import cn.iocoder.yudao.framework.pay.core.client.dto.refund.PayRefundUnifiedRespDTO;
 
 /**
  * 支付客户端，用于对接各支付渠道的 SDK，实现发起支付、退款等功能
- *
- * @author 芋道源码
  */
 public interface PayClient {
 
@@ -32,42 +34,38 @@ public interface PayClient {
      * @return 解析结果
      * @throws Exception 解析失败，抛出异常
      */
-    PayOrderNotifyRespDTO parseOrderNotify(PayNotifyDataDTO data) throws Exception;
+    PayOrderNotifyRespDTO parseOrderNotify(PayNotifyReqDTO data) throws Exception;
 
     /**
      * 调用支付渠道，进行退款
-     * @param reqDTO  统一退款请求信息
+     *
+     * @param reqDTO 统一退款请求信息
      * @return 各支付渠道的统一返回结果
      */
     PayCommonResult<PayRefundUnifiedRespDTO> unifiedRefund(PayRefundUnifiedReqDTO reqDTO);
 
     /**
      * 解析支付退款通知数据
-     * @param notifyData  支付退款通知请求数据
+     *
+     * @param notifyData 支付退款通知请求数据
      * @return 支付退款通知的Notify DTO
      */
-    PayRefundNotifyDTO parseRefundNotify(PayNotifyDataDTO notifyData);
+    PayRefundNotifyRespDTO parseRefundNotify(PayNotifyReqDTO notifyData);
 
-    // TODO @芋艿：后续改成非 default，避免不知道去实现
     /**
      * 验证是否渠道通知
      *
      * @param notifyData 通知数据
      * @return 默认是 true
      */
-    default boolean verifyNotifyData(PayNotifyDataDTO notifyData) {
-        return true;
-    }
+    boolean verifyNotifyData(PayNotifyReqDTO notifyData);
 
-    // TODO @芋艿：后续改成非 default，避免不知道去实现
     /**
      * 判断是否为退款通知
      *
-     * @param notifyData  通知数据
+     * @param notifyData 通知数据
      * @return 默认是 false
      */
-    default  boolean isRefundNotify(PayNotifyDataDTO notifyData){
-        return false;
-    }
+    boolean isRefundNotify(PayNotifyReqDTO notifyData);
 
 }

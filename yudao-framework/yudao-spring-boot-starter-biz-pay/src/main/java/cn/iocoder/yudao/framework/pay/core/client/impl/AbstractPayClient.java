@@ -4,9 +4,9 @@ import cn.iocoder.yudao.framework.pay.core.client.AbstractPayCodeMapping;
 import cn.iocoder.yudao.framework.pay.core.client.PayClient;
 import cn.iocoder.yudao.framework.pay.core.client.PayClientConfig;
 import cn.iocoder.yudao.framework.pay.core.client.PayCommonResult;
-import cn.iocoder.yudao.framework.pay.core.client.dto.PayOrderUnifiedReqDTO;
-import cn.iocoder.yudao.framework.pay.core.client.dto.PayRefundUnifiedReqDTO;
-import cn.iocoder.yudao.framework.pay.core.client.dto.PayRefundUnifiedRespDTO;
+import cn.iocoder.yudao.framework.pay.core.client.dto.order.PayOrderUnifiedReqDTO;
+import cn.iocoder.yudao.framework.pay.core.client.dto.refund.PayRefundUnifiedReqDTO;
+import cn.iocoder.yudao.framework.pay.core.client.dto.refund.PayRefundUnifiedRespDTO;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.validation.Validation;
@@ -15,8 +15,6 @@ import static cn.iocoder.yudao.framework.common.util.json.JsonUtils.toJsonString
 
 /**
  * 支付客户端的抽象类，提供模板方法，减少子类的冗余代码
- *
- * @author 芋道源码
  */
 @Slf4j
 public abstract class AbstractPayClient<Config extends PayClientConfig> implements PayClient {
@@ -25,14 +23,17 @@ public abstract class AbstractPayClient<Config extends PayClientConfig> implemen
      * 渠道编号
      */
     private final Long channelId;
+
     /**
      * 渠道编码
      */
     private final String channelCode;
+
     /**
      * 错误码枚举类
      */
     protected AbstractPayCodeMapping codeMapping;
+
     /**
      * 支付配置
      */
@@ -94,15 +95,14 @@ public abstract class AbstractPayClient<Config extends PayClientConfig> implemen
         return result;
     }
 
-    protected abstract PayCommonResult<?> doUnifiedOrder(PayOrderUnifiedReqDTO reqDTO)
-            throws Throwable;
+    protected abstract PayCommonResult<?> doUnifiedOrder(PayOrderUnifiedReqDTO reqDTO) throws Throwable;
 
     @Override
     public PayCommonResult<PayRefundUnifiedRespDTO> unifiedRefund(PayRefundUnifiedReqDTO reqDTO) {
         PayCommonResult<PayRefundUnifiedRespDTO> resp;
         try {
             resp = doUnifiedRefund(reqDTO);
-        }  catch (Throwable ex) {
+        } catch (Throwable ex) {
             // 记录异常日志
             log.error("[unifiedRefund][request({}) 发起退款失败]", toJsonString(reqDTO), ex);
             resp = PayCommonResult.error(ex);

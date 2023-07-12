@@ -8,8 +8,6 @@ import org.springframework.context.annotation.Bean;
 
 /**
  * 支付配置类
- *
- * @author 芋道源码
  */
 @AutoConfiguration
 @EnableConfigurationProperties(PayProperties.class)
@@ -19,5 +17,4 @@ public class YudaoPayAutoConfiguration {
     public PayClientFactory payClientFactory() {
         return new PayClientFactoryImpl();
     }
-
 }

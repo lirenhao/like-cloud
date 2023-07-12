@@ -3,7 +3,7 @@ package cn.iocoder.yudao.framework.pay.core.client.impl.alipay;
 import cn.hutool.core.util.StrUtil;
 import cn.iocoder.yudao.framework.common.util.json.JsonUtils;
 import cn.iocoder.yudao.framework.pay.core.client.PayCommonResult;
-import cn.iocoder.yudao.framework.pay.core.client.dto.PayOrderUnifiedReqDTO;
+import cn.iocoder.yudao.framework.pay.core.client.dto.order.PayOrderUnifiedReqDTO;
 import cn.iocoder.yudao.framework.pay.core.enums.PayChannelEnum;
 import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.AlipayApiException;
@@ -12,12 +12,9 @@ import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.alipay.api.response.AlipayTradePagePayResponse;
 import lombok.extern.slf4j.Slf4j;
 
-
 /**
  * 支付宝【PC网站支付】的 PayClient 实现类
  * 文档：https://opendocs.alipay.com/open/270/105898
- *
- * @author XGD
  */
 @Slf4j
 public class AlipayPcPayClient extends AbstractAlipayClient {
@@ -55,6 +52,6 @@ public class AlipayPcPayClient extends AbstractAlipayClient {
             return PayCommonResult.build(e.getErrCode(), e.getErrMsg(), null, codeMapping);
         }
         // 响应为表单格式，前端可嵌入响应的页面或关闭当前支付窗口
-        return PayCommonResult.build(StrUtil.blankToDefault(response.getCode(),"10000") ,response.getMsg(), response, codeMapping);
+        return PayCommonResult.build(StrUtil.blankToDefault(response.getCode(), "10000"), response.getMsg(), response, codeMapping);
     }
 }
