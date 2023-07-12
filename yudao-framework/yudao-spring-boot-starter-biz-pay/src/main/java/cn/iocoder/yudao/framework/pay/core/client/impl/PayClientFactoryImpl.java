@@ -8,10 +8,7 @@ import cn.iocoder.yudao.framework.pay.core.client.impl.alipay.AlipayPayClientCon
 import cn.iocoder.yudao.framework.pay.core.client.impl.alipay.AlipayPcPayClient;
 import cn.iocoder.yudao.framework.pay.core.client.impl.alipay.AlipayQrPayClient;
 import cn.iocoder.yudao.framework.pay.core.client.impl.alipay.AlipayWapPayClient;
-import cn.iocoder.yudao.framework.pay.core.client.impl.wx.WxH5PayClient;
-import cn.iocoder.yudao.framework.pay.core.client.impl.wx.WxNativePayClient;
-import cn.iocoder.yudao.framework.pay.core.client.impl.wx.WxPayClientConfig;
-import cn.iocoder.yudao.framework.pay.core.client.impl.wx.WxPubPayClient;
+import cn.iocoder.yudao.framework.pay.core.client.impl.wx.*;
 import cn.iocoder.yudao.framework.pay.core.enums.PayChannelEnum;
 import lombok.extern.slf4j.Slf4j;
 
@@ -64,8 +61,8 @@ public class PayClientFactoryImpl implements PayClientFactory {
         // TODO @芋艿 WX_LITE WX_APP 如果不添加在 项目启动的时候去初始化会报错无法启动。所以我手动加了两个，具体需要你来配
         switch (channelEnum) {
             case WX_PUB: return (AbstractPayClient<Config>) new WxPubPayClient(channelId, (WxPayClientConfig) config);
-            case WX_LITE: return (AbstractPayClient<Config>) new WxH5PayClient(channelId, (WxPayClientConfig) config); //微信小程序请求支付
-            case WX_APP: return (AbstractPayClient<Config>) new WxPubPayClient(channelId, (WxPayClientConfig) config);
+            case WX_H5: return (AbstractPayClient<Config>) new WxH5PayClient(channelId, (WxPayClientConfig) config); //微信小程序请求支付
+            case WX_APP: return (AbstractPayClient<Config>) new WxAppPayClient(channelId, (WxPayClientConfig) config);
             case WX_NATIVE: return (AbstractPayClient<Config>) new WxNativePayClient(channelId, (WxPayClientConfig) config);
             case ALIPAY_WAP: return (AbstractPayClient<Config>) new AlipayWapPayClient(channelId, (AlipayPayClientConfig) config);
             case ALIPAY_QR: return (AbstractPayClient<Config>) new AlipayQrPayClient(channelId, (AlipayPayClientConfig) config);
