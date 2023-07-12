@@ -7,9 +7,9 @@ import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.pay.config.PayProperties;
 import cn.iocoder.yudao.framework.pay.core.client.PayClient;
 import cn.iocoder.yudao.framework.pay.core.client.PayClientFactory;
-import cn.iocoder.yudao.framework.pay.core.client.dto.PayNotifyDataDTO;
-import cn.iocoder.yudao.framework.pay.core.client.dto.PayOrderNotifyRespDTO;
-import cn.iocoder.yudao.framework.pay.core.client.dto.PayOrderUnifiedReqDTO;
+import cn.iocoder.yudao.framework.pay.core.client.dto.notify.PayNotifyReqDTO;
+import cn.iocoder.yudao.framework.pay.core.client.dto.notify.PayOrderNotifyRespDTO;
+import cn.iocoder.yudao.framework.pay.core.client.dto.order.PayOrderUnifiedReqDTO;
 import cn.iocoder.yudao.framework.tenant.core.util.TenantUtils;
 import cn.iocoder.yudao.module.pay.api.order.dto.PayOrderCreateReqDTO;
 import cn.iocoder.yudao.module.pay.controller.admin.order.vo.PayOrderExportReqVO;
@@ -220,7 +220,7 @@ public class PayOrderServiceImpl implements PayOrderService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void notifyPayOrder(Long channelId, PayOrderNotifyRespDTO notify, PayNotifyDataDTO rawNotify) {
+    public void notifyPayOrder(Long channelId, PayOrderNotifyRespDTO notify, PayNotifyReqDTO rawNotify) {
         // 校验支付渠道是否有效
         PayChannelDO channel = channelService.validPayChannel(channelId);
         TenantUtils.execute(channel.getTenantId(), () -> {
@@ -243,7 +243,7 @@ public class PayOrderServiceImpl implements PayOrderService {
      * @param rawNotify 通知数据
      * @return PayOrderExtensionDO 对象
      */
-    private PayOrderExtensionDO updatePayOrderExtensionSuccess(String no, PayNotifyDataDTO rawNotify) {
+    private PayOrderExtensionDO updatePayOrderExtensionSuccess(String no, PayNotifyReqDTO rawNotify) {
         // 1.1 查询 PayOrderExtensionDO
         PayOrderExtensionDO orderExtension = orderExtensionMapper.selectByNo(no);
         if (orderExtension == null) {

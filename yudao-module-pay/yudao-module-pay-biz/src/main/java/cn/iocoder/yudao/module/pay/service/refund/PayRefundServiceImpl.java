@@ -7,9 +7,9 @@ import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.pay.config.PayProperties;
 import cn.iocoder.yudao.framework.pay.core.client.PayClient;
 import cn.iocoder.yudao.framework.pay.core.client.PayClientFactory;
-import cn.iocoder.yudao.framework.pay.core.client.dto.PayNotifyDataDTO;
-import cn.iocoder.yudao.framework.pay.core.client.dto.PayRefundNotifyDTO;
-import cn.iocoder.yudao.framework.pay.core.client.dto.PayRefundUnifiedReqDTO;
+import cn.iocoder.yudao.framework.pay.core.client.dto.notify.PayNotifyReqDTO;
+import cn.iocoder.yudao.framework.pay.core.client.dto.notify.PayRefundNotifyRespDTO;
+import cn.iocoder.yudao.framework.pay.core.client.dto.refund.PayRefundUnifiedReqDTO;
 import cn.iocoder.yudao.framework.pay.core.enums.PayNotifyRefundStatusEnum;
 import cn.iocoder.yudao.module.pay.api.refund.dto.PayRefundCreateReqDTO;
 import cn.iocoder.yudao.module.pay.controller.admin.refund.vo.PayRefundExportReqVO;
@@ -187,7 +187,7 @@ public class PayRefundServiceImpl implements PayRefundService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void notifyPayRefund(Long channelId, PayRefundNotifyDTO notify, PayNotifyDataDTO rawNotify) {
+    public void notifyPayRefund(Long channelId, PayRefundNotifyRespDTO notify, PayNotifyReqDTO rawNotify) {
         // 校验支付渠道是否有效
         // TODO 芋艿：需要重构下这块的逻辑
         PayChannelDO channel = channelService.validPayChannel(channelId);
@@ -199,7 +199,7 @@ public class PayRefundServiceImpl implements PayRefundService {
         }
     }
 
-    private void payRefundSuccess(PayRefundNotifyDTO refundNotify) {
+    private void payRefundSuccess(PayRefundNotifyRespDTO refundNotify) {
         // 校验退款单存在
         PayRefundDO refundDO = refundMapper.selectByTradeNoAndMerchantRefundNo(refundNotify.getTradeNo(),
                 refundNotify.getReqNo());

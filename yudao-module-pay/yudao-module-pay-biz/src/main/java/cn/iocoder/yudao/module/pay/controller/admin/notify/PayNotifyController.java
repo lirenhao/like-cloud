@@ -3,9 +3,10 @@ package cn.iocoder.yudao.module.pay.controller.admin.notify;
 import cn.iocoder.yudao.framework.operatelog.core.annotations.OperateLog;
 import cn.iocoder.yudao.framework.pay.core.client.PayClient;
 import cn.iocoder.yudao.framework.pay.core.client.PayClientFactory;
-import cn.iocoder.yudao.framework.pay.core.client.dto.PayNotifyDataDTO;
-import cn.iocoder.yudao.framework.pay.core.client.dto.PayOrderNotifyRespDTO;
-import cn.iocoder.yudao.framework.pay.core.client.dto.PayRefundNotifyDTO;
+import cn.iocoder.yudao.framework.pay.core.client.dto.notify.PayNotifyReqDTO;
+import cn.iocoder.yudao.framework.pay.core.client.dto.notify.PayOrderNotifyRespDTO;
+import cn.iocoder.yudao.framework.pay.core.client.dto.notify.PayRefundNotifyRespDTO;
+import cn.iocoder.yudao.module.pay.api.notify.dto.PayRefundNotifyReqDTO;
 import cn.iocoder.yudao.module.pay.service.order.PayOrderService;
 import cn.iocoder.yudao.module.pay.service.refund.PayRefundService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -77,9 +78,9 @@ public class PayNotifyController {
             throw exception(PAY_CHANNEL_CLIENT_NOT_FOUND);
         }
 
-        PayNotifyDataDTO rawNotify = PayNotifyDataDTO.builder().params(params).body(body).build();
+        PayNotifyReqDTO rawNotify = PayNotifyReqDTO.builder().params(params).body(body).build();
         if (payClient.isRefundNotify(rawNotify)) {
-            PayRefundNotifyDTO notify = payClient.parseRefundNotify(rawNotify);
+            PayRefundNotifyRespDTO notify = payClient.parseRefundNotify(rawNotify);
             // 退款通知
             refundService.notifyPayRefund(channelId, notify, rawNotify);
             return "success";
