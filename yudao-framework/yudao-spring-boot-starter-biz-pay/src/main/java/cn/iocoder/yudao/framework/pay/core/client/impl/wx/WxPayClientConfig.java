@@ -1,7 +1,6 @@
 package cn.iocoder.yudao.framework.pay.core.client.impl.wx;
 
 import cn.iocoder.yudao.framework.pay.core.client.PayClientConfig;
-import cn.iocoder.yudao.framework.pay.core.client.impl.alipay.AlipayPayClientConfig;
 import lombok.Data;
 
 import javax.validation.ConstraintViolation;

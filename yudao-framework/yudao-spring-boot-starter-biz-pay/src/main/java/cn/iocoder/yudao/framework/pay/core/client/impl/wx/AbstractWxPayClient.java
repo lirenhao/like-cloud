@@ -50,12 +50,8 @@ public abstract class AbstractWxPayClient extends AbstractPayClient<WxPayClientC
     @Override
     @SneakyThrows
     protected void doInit() {
-        RSAAutoCertificateConfig payConfig = new RSAAutoCertificateConfig.Builder().
-                merchantId(config.getMchId()).
-                privateKeyFromPath(config.getPrivateKeyPath())
-                .merchantSerialNumber(config.getMchSerialNo())
-                .apiV3Key(config.getApiV3Key())
-                .build();
+        WxRSAAutoConfig.createOrUpdatePayClient(this.config);
+        RSAAutoCertificateConfig payConfig = WxRSAAutoConfig.getAutoCertificateConfig(this.config.getMchId());
         this.httpClient = new DefaultHttpClientBuilder().config(payConfig).build();
         this.notificationParser = new NotificationParser(payConfig);
         this.refundService = new RefundService.Builder().config(payConfig).build();

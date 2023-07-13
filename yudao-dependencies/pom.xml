@@ -755,6 +755,18 @@
                 <artifactId>wechatpay-apache-httpclient</artifactId>
                 <version>0.4.9</version>
             </dependency>
+
+            <!-- 微信相关 -->
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>wx-java-mp-spring-boot-starter</artifactId>
+                <version>4.5.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>wx-java-miniapp-spring-boot-starter</artifactId>
+                <version>4.5.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
