@@ -112,14 +112,25 @@ public abstract class AbstractWxPayClient extends AbstractPayClient<WxPayClientC
 
     @Override
     public boolean isRefundNotify(PayNotifyReqDTO notifyData) {
-        return false;
+        return notifyData.getParams().get("event_type").contains("REFUND");
     }
 
     @Override
     public boolean verifyNotifyData(PayNotifyReqDTO notifyData) {
-        boolean verifyResult = false;
-        // TODO 如何验证
-        return true;
+        RequestParam param = new RequestParam.Builder()
+                .serialNumber(notifyData.getParams().get("Wechatpay-Serial"))
+                .nonce(notifyData.getParams().get("Wechatpay-Nonce"))
+                .signature(notifyData.getParams().get("Wechatpay-Signature"))
+                .timestamp(notifyData.getParams().get("Wechatpay-Timestamp"))
+                .signType(notifyData.getParams().get("Wechatpay-Signature-Type"))
+                .body(notifyData.getBody())
+                .build();
+        try {
+            notificationParser.parse(param, Object.class);
+            return true;
+        } catch (ValidationException e) {
+            return false;
+        }
     }
 
     @Override
