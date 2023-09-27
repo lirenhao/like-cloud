@@ -26,6 +26,7 @@
         <module>like-spring-boot-starter-file</module>
 
         <module>like-spring-boot-starter-biz-dict</module>
+        <module>like-spring-boot-starter-job</module>
     </modules>
 
     <artifactId>like-framework</artifactId>
