@@ -1,0 +1,14 @@
+package cn.like.cloud.framework.common.util.object;
+
+import cn.like.cloud.framework.common.pojo.PageParam;
+
+/**
+ * {@link PageParam} 工具类
+ */
+public class PageUtils {
+
+    public static int getStart(PageParam pageParam) {
+        return (pageParam.getPageNo() - 1) * pageParam.getPageSize();
+    }
+
+}
