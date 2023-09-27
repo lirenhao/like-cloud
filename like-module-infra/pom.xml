@@ -20,6 +20,7 @@
     </description>
     <modules>
         <module>like-module-infra-api</module>
+        <module>like-module-infra-biz</module>
     </modules>
 
 </project>

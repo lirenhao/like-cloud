@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>like-spring-boot-starter-biz-operatelog</artifactId>
+    <artifactId>like-spring-boot-starter-biz-operate-log</artifactId>
     <packaging>jar</packaging>
 
     <name>${project.artifactId}</name>

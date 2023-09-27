@@ -27,8 +27,9 @@
         <module>like-spring-boot-starter-protection</module>
 
         <module>like-spring-boot-starter-biz-dict</module>
-        <module>like-spring-boot-starter-biz-operatelog</module>
+        <module>like-spring-boot-starter-biz-operate-log</module>
         <module>like-spring-boot-starter-biz-tenant</module>
+        <module>like-spring-boot-starter-biz-error-code</module>
     </modules>
 
     <artifactId>like-framework</artifactId>

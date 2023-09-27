@@ -126,7 +126,7 @@
             </dependency>
             <dependency>
                 <groupId>cn.like.cloud</groupId>
-                <artifactId>like-spring-boot-starter-biz-operatelog</artifactId>
+                <artifactId>like-spring-boot-starter-biz-operate-log</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
