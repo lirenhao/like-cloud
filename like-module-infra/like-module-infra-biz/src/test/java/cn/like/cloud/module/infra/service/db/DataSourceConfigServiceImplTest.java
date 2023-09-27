@@ -61,7 +61,7 @@ public class DataSourceConfigServiceImplTest extends BaseDbUnitTest {
         // mock DynamicDataSourceProperties
         when(dynamicDataSourceProperties.getPrimary()).thenReturn("primary");
         when(dynamicDataSourceProperties.getDatasource()).thenReturn(MapUtil.of("primary",
-                new DataSourceProperty().setUrl("http://localhost:3306").setUsername("yunai").setPassword("tudou")));
+                new DataSourceProperty().setUrl("http://localhost:3306").setUsername("username").setPassword("password")));
     }
 
     @Test
@@ -161,7 +161,7 @@ public class DataSourceConfigServiceImplTest extends BaseDbUnitTest {
         assertEquals(id, dataSourceConfig.getId());
         assertEquals("primary", dataSourceConfig.getName());
         assertEquals("http://localhost:3306", dataSourceConfig.getUrl());
-        assertEquals("root", dataSourceConfig.getUsername());
+        assertEquals("username", dataSourceConfig.getUsername());
         assertEquals("password", dataSourceConfig.getPassword());
     }
 
@@ -194,7 +194,7 @@ public class DataSourceConfigServiceImplTest extends BaseDbUnitTest {
         assertEquals(0L, dataSourceConfigList.get(0).getId());
         assertEquals("primary", dataSourceConfigList.get(0).getName());
         assertEquals("http://localhost:3306", dataSourceConfigList.get(0).getUrl());
-        assertEquals("root", dataSourceConfigList.get(0).getUsername());
+        assertEquals("username", dataSourceConfigList.get(0).getUsername());
         assertEquals("password", dataSourceConfigList.get(0).getPassword());
         // normal
         assertPojoEquals(dbDataSourceConfig, dataSourceConfigList.get(1));

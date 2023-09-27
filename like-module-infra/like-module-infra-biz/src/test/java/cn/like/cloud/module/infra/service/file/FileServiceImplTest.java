@@ -46,7 +46,7 @@ public class FileServiceImplTest extends BaseDbUnitTest {
         });
         fileMapper.insert(dbFile);
         // 测试 path 不匹配
-        fileMapper.insert(ObjectUtils.cloneIgnoreId(dbFile, o -> o.setPath("test")));
+        fileMapper.insert(ObjectUtils.cloneIgnoreId(dbFile, o -> o.setPath("path")));
         // 测试 type 不匹配
         fileMapper.insert(ObjectUtils.cloneIgnoreId(dbFile, o -> {
             o.setType("image/png");
@@ -73,7 +73,7 @@ public class FileServiceImplTest extends BaseDbUnitTest {
     public void testCreateFile_success() throws Exception {
         // 准备参数
         String path = randomString();
-        byte[] content = ResourceUtil.readBytes("file/erweima.jpg");
+        byte[] content = ResourceUtil.readBytes("file/test.jpg");
         // mock Master 文件客户端
         FileClient client = mock(FileClient.class);
         when(fileConfigService.getMasterFileClient()).thenReturn(client);

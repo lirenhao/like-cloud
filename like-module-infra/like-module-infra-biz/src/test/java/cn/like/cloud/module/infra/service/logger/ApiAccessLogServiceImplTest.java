@@ -36,7 +36,7 @@ public class ApiAccessLogServiceImplTest extends BaseDbUnitTest {
         ApiAccessLogDO apiAccessLogDO = randomPojo(ApiAccessLogDO.class, o -> {
             o.setUserId(2233L);
             o.setUserType(UserTypeEnum.ADMIN.getValue());
-            o.setApplicationName("yudao-test");
+            o.setApplicationName("like-test");
             o.setRequestUrl("foo");
             o.setBeginTime(buildTime(2021, 3, 13));
             o.setDuration(1000);

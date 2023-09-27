@@ -84,7 +84,7 @@ public class ApiErrorLogServiceImplTest extends BaseDbUnitTest {
         ApiErrorLogDO apiErrorLogDO = randomPojo(ApiErrorLogDO.class, o -> {
             o.setUserId(2233L);
             o.setUserType(UserTypeEnum.ADMIN.getValue());
-            o.setApplicationName("yudao-test");
+            o.setApplicationName("like-test");
             o.setRequestUrl("foo");
             o.setExceptionTime(buildTime(2021, 3, 13));
             o.setProcessStatus(ApiErrorLogProcessStatusEnum.INIT.getStatus());

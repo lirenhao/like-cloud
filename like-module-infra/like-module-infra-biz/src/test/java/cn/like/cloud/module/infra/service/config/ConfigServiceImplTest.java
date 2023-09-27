@@ -165,8 +165,8 @@ public class ConfigServiceImplTest extends BaseDbUnitTest {
         configMapper.insert(cloneIgnoreId(dbConfig, o -> o.setCreateTime(buildTime(2021, 1, 1))));
         // 准备参数
         ConfigPageReqVO reqVO = new ConfigPageReqVO();
-        reqVO.setName("艿");
-        reqVO.setKey("nai");
+        reqVO.setName("测试");
+        reqVO.setKey("test");
         reqVO.setType(ConfigTypeEnum.SYSTEM.getType());
         reqVO.setCreateTime(buildBetweenTime(2021, 1, 15, 2021, 2, 15));
 
