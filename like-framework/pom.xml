@@ -14,8 +14,9 @@
         <module>like-spring-boot-starter-env</module>
         <module>like-spring-boot-starter-banner</module>
         <module>like-spring-boot-starter-rpc</module>
-        <module>like-spring-boot-starter-web</module>
         <module>like-spring-boot-starter-mybatis</module>
+        <module>like-spring-boot-starter-redis</module>
+        <module>like-spring-boot-starter-web</module>
     </modules>
 
     <artifactId>like-framework</artifactId>
