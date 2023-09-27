@@ -1,0 +1,2 @@
+cn.like.cloud.framework.datasource.config.LikeDataSourceAutoConfiguration
+cn.like.cloud.framework.mybatis.config.LikeMybatisAutoConfiguration
