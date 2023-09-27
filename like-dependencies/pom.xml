@@ -110,8 +110,8 @@
 
             <!-- 业务组件 -->
             <dependency>
-                <groupId>cn.iocoder.cloud</groupId>
-                <artifactId>yudao-spring-boot-starter-banner</artifactId>
+                <groupId>cn.like.cloud</groupId>
+                <artifactId>like-spring-boot-starter-banner</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
@@ -365,16 +365,6 @@
                 <groupId>org.apache.skywalking</groupId>
                 <artifactId>apm-toolkit-opentracing</artifactId>
                 <version>${skywalking.version}</version>
-                <!--                <exclusions>-->
-                <!--                    <exclusion>-->
-                <!--                        <artifactId>opentracing-api</artifactId>-->
-                <!--                        <groupId>io.opentracing</groupId>-->
-                <!--                    </exclusion>-->
-                <!--                    <exclusion>-->
-                <!--                        <artifactId>opentracing-util</artifactId>-->
-                <!--                        <groupId>io.opentracing</groupId>-->
-                <!--                    </exclusion>-->
-                <!--                </exclusions>-->
             </dependency>
             <dependency>
                 <groupId>io.opentracing</groupId>
