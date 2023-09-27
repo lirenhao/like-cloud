@@ -1,18 +1,16 @@
 package cn.like.cloud.framework.tenant.core.mq;
 
 import cn.hutool.core.map.MapUtil;
-import cn.iocoder.yudao.framework.tenant.core.util.TenantUtils;
+import cn.like.cloud.framework.tenant.core.util.TenantUtils;
 import org.springframework.cloud.function.context.catalog.FunctionAroundWrapper;
 import org.springframework.cloud.function.context.catalog.SimpleFunctionRegistry;
 import org.springframework.messaging.Message;
 
-import static cn.iocoder.yudao.framework.web.core.util.WebFrameworkUtils.HEADER_TENANT_ID;
+import static cn.like.cloud.framework.web.core.util.WebFrameworkUtils.HEADER_TENANT_ID;
 
 /**
  * 多租户 FunctionAroundWrapper 实现类
  * 消费消息时，设置租户编号到 Context 上
- *
- * @author 芋道源码
  */
 public class TenantFunctionAroundWrapper extends FunctionAroundWrapper {
 
