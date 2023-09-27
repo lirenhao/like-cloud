@@ -19,15 +19,15 @@
         <module>like-spring-boot-starter-redis</module>
         <module>like-spring-boot-starter-web</module>
         <module>like-spring-boot-starter-security</module>
-
         <module>like-spring-boot-starter-test</module>
 
         <module>like-spring-boot-starter-excel</module>
         <module>like-spring-boot-starter-file</module>
-
-        <module>like-spring-boot-starter-biz-dict</module>
         <module>like-spring-boot-starter-job</module>
         <module>like-spring-boot-starter-monitor</module>
+        <module>like-spring-boot-starter-protection</module>
+
+        <module>like-spring-boot-starter-biz-dict</module>
     </modules>
 
     <artifactId>like-framework</artifactId>
