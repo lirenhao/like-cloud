@@ -11,6 +11,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>like-common</module>
+        <module>like-spring-boot-starter-env</module>
     </modules>
 
     <artifactId>like-framework</artifactId>
