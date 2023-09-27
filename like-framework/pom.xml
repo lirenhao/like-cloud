@@ -20,6 +20,8 @@
         <module>like-spring-boot-starter-security</module>
         <module>like-spring-boot-starter-file</module>
         <module>like-spring-boot-starter-test</module>
+        <module>like-spring-boot-starter-excel</module>
+        <module>like-spring-boot-starter-biz-dict</module>
     </modules>
 
     <artifactId>like-framework</artifactId>
