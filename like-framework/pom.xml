@@ -17,6 +17,7 @@
         <module>like-spring-boot-starter-mybatis</module>
         <module>like-spring-boot-starter-redis</module>
         <module>like-spring-boot-starter-web</module>
+        <module>like-spring-boot-starter-security</module>
     </modules>
 
     <artifactId>like-framework</artifactId>

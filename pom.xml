@@ -11,6 +11,7 @@
         <module>like-dependencies</module>
         <module>like-framework</module>
         <module>like-module-infra</module>
+        <module>like-module-system</module>
     </modules>
 
     <name>${project.artifactId}</name>

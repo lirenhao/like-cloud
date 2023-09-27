@@ -116,6 +116,11 @@
             </dependency>
             <dependency>
                 <groupId>cn.like.cloud</groupId>
+                <artifactId>like-module-system-api</artifactId> <!-- 需要使用它，进行 Token 的校验 -->
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.like.cloud</groupId>
                 <artifactId>like-spring-boot-starter-banner</artifactId>
                 <version>${revision}</version>
             </dependency>

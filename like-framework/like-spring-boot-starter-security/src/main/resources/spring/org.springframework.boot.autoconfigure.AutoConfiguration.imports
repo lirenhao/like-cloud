@@ -1,0 +1,3 @@
+cn.like.cloud.framework.security.config.LikeSecurityRpcAutoConfiguration
+cn.like.cloud.framework.security.config.LikeSecurityAutoConfiguration
+cn.like.cloud.framework.security.config.LikeWebSecurityConfigurerAdapter
