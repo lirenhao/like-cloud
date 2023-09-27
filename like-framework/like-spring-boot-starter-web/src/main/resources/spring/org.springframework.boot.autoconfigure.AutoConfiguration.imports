@@ -1,0 +1,5 @@
+cn.like.cloud.framework.apilog.config.LikeApiLogAutoConfiguration
+cn.like.cloud.framework.jackson.config.LikeJacksonAutoConfiguration
+cn.like.cloud.framework.swagger.config.LikeSwaggerAutoConfiguration
+cn.like.cloud.framework.web.config.LikeWebAutoConfiguration
+cn.like.cloud.framework.apilog.config.LikeApiLogRpcAutoConfiguration

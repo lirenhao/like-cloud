@@ -10,6 +10,7 @@
     <modules>
         <module>like-dependencies</module>
         <module>like-framework</module>
+        <module>like-module-infra</module>
     </modules>
 
     <name>${project.artifactId}</name>

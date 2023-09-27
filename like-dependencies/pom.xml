@@ -111,67 +111,72 @@
             <!-- 业务组件 -->
             <dependency>
                 <groupId>cn.like.cloud</groupId>
+                <artifactId>like-module-infra-api</artifactId> <!-- 需要使用它，进行操作日志的记录 -->
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.like.cloud</groupId>
                 <artifactId>like-spring-boot-starter-banner</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>cn.iocoder.cloud</groupId>
-                <artifactId>yudao-spring-boot-starter-biz-operatelog</artifactId>
+                <groupId>cn.like.cloud</groupId>
+                <artifactId>like-spring-boot-starter-biz-operatelog</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>cn.iocoder.cloud</groupId>
-                <artifactId>yudao-spring-boot-starter-biz-dict</artifactId>
+                <groupId>cn.like.cloud</groupId>
+                <artifactId>like-spring-boot-starter-biz-dict</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>cn.iocoder.cloud</groupId>
-                <artifactId>yudao-spring-boot-starter-biz-sms</artifactId>
+                <groupId>cn.like.cloud</groupId>
+                <artifactId>like-spring-boot-starter-biz-sms</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>cn.iocoder.cloud</groupId>
-                <artifactId>yudao-spring-boot-starter-biz-pay</artifactId>
+                <groupId>cn.like.cloud</groupId>
+                <artifactId>like-spring-boot-starter-biz-pay</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>cn.iocoder.cloud</groupId>
-                <artifactId>yudao-spring-boot-starter-biz-weixin</artifactId>
+                <groupId>cn.like.cloud</groupId>
+                <artifactId>like-spring-boot-starter-biz-weixin</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>cn.iocoder.cloud</groupId>
-                <artifactId>yudao-spring-boot-starter-biz-tenant</artifactId>
+                <groupId>cn.like.cloud</groupId>
+                <artifactId>like-spring-boot-starter-biz-tenant</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>cn.iocoder.cloud</groupId>
-                <artifactId>yudao-spring-boot-starter-biz-data-permission</artifactId>
+                <groupId>cn.like.cloud</groupId>
+                <artifactId>like-spring-boot-starter-biz-data-permission</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>cn.iocoder.cloud</groupId>
-                <artifactId>yudao-spring-boot-starter-biz-social</artifactId>
+                <groupId>cn.like.cloud</groupId>
+                <artifactId>like-spring-boot-starter-biz-social</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>cn.iocoder.cloud</groupId>
-                <artifactId>yudao-spring-boot-starter-biz-error-code</artifactId>
+                <groupId>cn.like.cloud</groupId>
+                <artifactId>like-spring-boot-starter-biz-error-code</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>cn.iocoder.cloud</groupId>
-                <artifactId>yudao-spring-boot-starter-biz-ip</artifactId>
+                <groupId>cn.like.cloud</groupId>
+                <artifactId>like-spring-boot-starter-biz-ip</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>cn.iocoder.cloud</groupId>
-                <artifactId>yudao-spring-boot-starter-captcha</artifactId>
+                <groupId>cn.like.cloud</groupId>
+                <artifactId>like-spring-boot-starter-captcha</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>cn.iocoder.cloud</groupId>
-                <artifactId>yudao-spring-boot-starter-desensitize</artifactId>
+                <groupId>cn.like.cloud</groupId>
+                <artifactId>like-spring-boot-starter-desensitize</artifactId>
                 <version>${revision}</version>
             </dependency>
 
@@ -184,21 +189,21 @@
             </dependency>
 
             <dependency>
-                <groupId>cn.iocoder.cloud</groupId>
-                <artifactId>yudao-spring-boot-starter-env</artifactId>
+                <groupId>cn.like.cloud</groupId>
+                <artifactId>like-spring-boot-starter-env</artifactId>
                 <version>${revision}</version>
             </dependency>
 
             <!-- Web 相关 -->
             <dependency>
-                <groupId>cn.iocoder.cloud</groupId>
-                <artifactId>yudao-spring-boot-starter-web</artifactId>
+                <groupId>cn.like.cloud</groupId>
+                <artifactId>like-spring-boot-starter-web</artifactId>
                 <version>${revision}</version>
             </dependency>
 
             <dependency>
-                <groupId>cn.iocoder.cloud</groupId>
-                <artifactId>yudao-spring-boot-starter-security</artifactId>
+                <groupId>cn.like.cloud</groupId>
+                <artifactId>like-spring-boot-starter-security</artifactId>
                 <version>${revision}</version>
             </dependency>
 
@@ -230,8 +235,8 @@
 
             <!-- DB 相关 -->
             <dependency>
-                <groupId>cn.iocoder.cloud</groupId>
-                <artifactId>yudao-spring-boot-starter-mybatis</artifactId>
+                <groupId>cn.like.cloud</groupId>
+                <artifactId>like-spring-boot-starter-mybatis</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
@@ -267,8 +272,8 @@
             </dependency>
 
             <dependency>
-                <groupId>cn.iocoder.cloud</groupId>
-                <artifactId>yudao-spring-boot-starter-redis</artifactId>
+                <groupId>cn.like.cloud</groupId>
+                <artifactId>like-spring-boot-starter-redis</artifactId>
                 <version>${revision}</version>
             </dependency>
 
@@ -286,8 +291,8 @@
 
             <!-- RPC 远程调用相关 -->
             <dependency>
-                <groupId>cn.iocoder.cloud</groupId>
-                <artifactId>yudao-spring-boot-starter-rpc</artifactId>
+                <groupId>cn.like.cloud</groupId>
+                <artifactId>like-spring-boot-starter-rpc</artifactId>
                 <version>${revision}</version>
             </dependency>
 
@@ -302,22 +307,22 @@
                 <version>${xxl-job.version}</version>
             </dependency>
             <dependency>
-                <groupId>cn.iocoder.cloud</groupId>
-                <artifactId>yudao-spring-boot-starter-job</artifactId>
+                <groupId>cn.like.cloud</groupId>
+                <artifactId>like-spring-boot-starter-job</artifactId>
                 <version>${revision}</version>
             </dependency>
 
             <!-- 消息队列相关 -->
             <dependency>
-                <groupId>cn.iocoder.cloud</groupId>
-                <artifactId>yudao-spring-boot-starter-mq</artifactId>
+                <groupId>cn.like.cloud</groupId>
+                <artifactId>like-spring-boot-starter-mq</artifactId>
                 <version>${revision}</version>
             </dependency>
 
             <!-- 服务保障相关 -->
             <dependency>
-                <groupId>cn.iocoder.cloud</groupId>
-                <artifactId>yudao-spring-boot-starter-protection</artifactId>
+                <groupId>cn.like.cloud</groupId>
+                <artifactId>like-spring-boot-starter-protection</artifactId>
                 <version>${revision}</version>
             </dependency>
 
@@ -346,8 +351,8 @@
 
             <!-- 监控相关 -->
             <dependency>
-                <groupId>cn.iocoder.cloud</groupId>
-                <artifactId>yudao-spring-boot-starter-monitor</artifactId>
+                <groupId>cn.like.cloud</groupId>
+                <artifactId>like-spring-boot-starter-monitor</artifactId>
                 <version>${revision}</version>
             </dependency>
 
@@ -395,8 +400,8 @@
 
             <!-- Test 测试相关 -->
             <dependency>
-                <groupId>cn.iocoder.cloud</groupId>
-                <artifactId>yudao-spring-boot-starter-test</artifactId>
+                <groupId>cn.like.cloud</groupId>
+                <artifactId>like-spring-boot-starter-test</artifactId>
                 <version>${revision}</version>
                 <scope>test</scope>
             </dependency>
@@ -437,8 +442,8 @@
 
             <!-- 工作流相关 -->
             <dependency>
-                <groupId>cn.iocoder.cloud</groupId>
-                <artifactId>yudao-spring-boot-starter-flowable</artifactId>
+                <groupId>cn.like.cloud</groupId>
+                <artifactId>like-spring-boot-starter-flowable</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
@@ -605,8 +610,8 @@
                 <version>${okhttp3.version}</version>
             </dependency>
             <dependency>
-                <groupId>cn.iocoder.cloud</groupId>
-                <artifactId>yudao-spring-boot-starter-file</artifactId>
+                <groupId>cn.like.cloud</groupId>
+                <artifactId>like-spring-boot-starter-file</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
