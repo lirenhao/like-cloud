@@ -718,30 +718,25 @@
             <dependency>
                 <groupId>com.alipay.sdk</groupId>
                 <artifactId>alipay-sdk-java</artifactId>
-                <version>4.35.79.ALL</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.bouncycastle</groupId>
-                        <artifactId>bcprov-jdk15on</artifactId>
-                    </exclusion>
-                </exclusions>
+                <version>4.38.10.ALL</version>
             </dependency>
+
             <dependency>
-                <groupId>com.github.binarywang</groupId>
-                <artifactId>weixin-java-pay</artifactId>
-                <version>4.5.0</version>
+                <groupId>com.alipay.sdk</groupId>
+                <artifactId>alipay-sdk-java-v3</artifactId>
+                <version>2.5.0.ALL</version>
             </dependency>
 
             <dependency>
                 <groupId>com.alipay.sdk</groupId>
                 <artifactId>alipay-easysdk</artifactId>
-                <version>2.2.2</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.bouncycastle</groupId>
-                        <artifactId>bcprov-jdk15on</artifactId>
-                    </exclusion>
-                </exclusions>
+                <version>2.2.3</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>weixin-java-pay</artifactId>
+                <version>4.5.0</version>
             </dependency>
 
             <dependency>
