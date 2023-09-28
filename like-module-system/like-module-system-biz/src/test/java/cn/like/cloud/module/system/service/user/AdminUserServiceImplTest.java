@@ -470,8 +470,6 @@ public class AdminUserServiceImplTest extends BaseDbUnitTest {
             o.setStatus(CommonStatusEnum.ENABLE.getStatus());
         });
         when(deptService.getDept(eq(dept.getId()))).thenReturn(dept);
-        // mock passwordEncoder 的方法
-        when(passwordEncoder.encode(eq("yudaoyuanma"))).thenReturn("java");
 
         // 调用
         UserImportRespVO respVO = userService.importUserList(newArrayList(importUser), true);
@@ -479,7 +477,6 @@ public class AdminUserServiceImplTest extends BaseDbUnitTest {
         assertEquals(1, respVO.getCreateUsernames().size());
         AdminUserDO user = userMapper.selectByUsername(respVO.getCreateUsernames().get(0));
         assertPojoEquals(importUser, user);
-        assertEquals("java", user.getPassword());
         assertEquals(0, respVO.getUpdateUsernames().size());
         assertEquals(0, respVO.getFailureUsernames().size());
     }

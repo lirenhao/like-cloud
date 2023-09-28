@@ -48,7 +48,7 @@ import static cn.like.cloud.module.system.enums.ErrorCodeConstants.*;
 @Slf4j
 public class AdminUserServiceImpl implements AdminUserService {
 
-    @Value("${sys.user.init-password:likeyuanma}")
+    @Value("${sys.user.init-password:like}")
     private String userInitPassword;
 
     @Resource
