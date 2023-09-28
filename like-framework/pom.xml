@@ -33,6 +33,7 @@
         <module>like-spring-boot-starter-captcha</module>
         <module>like-spring-boot-starter-biz-data-permission</module>
         <module>like-spring-boot-starter-biz-ip</module>
+        <module>like-spring-boot-starter-biz-sms</module>
     </modules>
 
     <artifactId>like-framework</artifactId>
