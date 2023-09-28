@@ -32,6 +32,7 @@
         <module>like-spring-boot-starter-biz-error-code</module>
         <module>like-spring-boot-starter-captcha</module>
         <module>like-spring-boot-starter-biz-data-permission</module>
+        <module>like-spring-boot-starter-biz-ip</module>
     </modules>
 
     <artifactId>like-framework</artifactId>
