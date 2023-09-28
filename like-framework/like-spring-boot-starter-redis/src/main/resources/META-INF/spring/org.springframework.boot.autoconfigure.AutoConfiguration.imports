@@ -1,0 +1,2 @@
+cn.like.cloud.framework.redis.config.LikeRedisAutoConfiguration
+cn.like.cloud.framework.redis.config.LikeCacheAutoConfiguration
