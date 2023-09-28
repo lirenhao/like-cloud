@@ -24,7 +24,7 @@ import static cn.hutool.core.util.RandomUtil.randomInt;
 /**
  * 代码生成器的 Builder，负责：
  * 1. 将数据库的表 {@link TableInfo} 定义，构建成 {@link CodegenTableDO}
- * 2. 将数据库的列 {@link TableField} 构定义，建成 {@link CodegenColumnDO}
+ * 2. 将数据库的列 {@link TableField} 定义，构建成 {@link CodegenColumnDO}
  */
 @Component
 public class CodegenBuilder {
@@ -185,7 +185,7 @@ public class CodegenBuilder {
         }
         // name
         if (StrUtil.endWithIgnoreCase(column.getJavaField(), "name")) {
-            column.setExample(randomEle(new String[]{"张三", "李四", "王五", "赵六", "芋艿"}));
+            column.setExample(randomEle(new String[]{"张三", "李四", "王五", "赵六"}));
             return;
         }
         // status
@@ -195,7 +195,7 @@ public class CodegenBuilder {
         }
         // url
         if (StrUtil.endWithIgnoreCase(column.getColumnName(), "url")) {
-            column.setExample("https://www.bing.cn");
+            column.setExample("https://www.test.cn");
             return;
         }
         // reason
