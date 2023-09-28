@@ -531,8 +531,6 @@ public class DataPermissionDatabaseInterceptor extends JsqlParserSupport impleme
 
     /**
      * SQL 解析上下文，方便透传 {@link DataPermissionRule} 规则
-     *
-     * @author 芋道源码
      */
     static final class ContextHolder {
 
@@ -573,8 +571,6 @@ public class DataPermissionDatabaseInterceptor extends JsqlParserSupport impleme
      * {@link MappedStatement} 缓存
      * 目前主要用于，记录 {@link DataPermissionRule} 是否对指定 {@link MappedStatement} 无效
      * 如果无效，则可以避免 SQL 的解析，加快速度
-     *
-     * @author 芋道源码
      */
     static final class MappedStatementCache {
 

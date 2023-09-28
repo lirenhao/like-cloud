@@ -19,6 +19,7 @@
     </description>
     <modules>
         <module>like-module-system-api</module>
+        <module>like-module-system-biz</module>
     </modules>
 
 </project>

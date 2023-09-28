@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Bean;
 @AutoConfiguration
 @ConditionalOnClass({BizTraceAspect.class})
 @EnableConfigurationProperties(MonitorProperties.class)
-@ConditionalOnProperty(prefix = "yudao.tracer", value = "enable", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "like.tracer", value = "enable", matchIfMissing = true)
 public class LikeTracerAutoConfiguration {
 
     /**
