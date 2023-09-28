@@ -119,7 +119,7 @@ like:
     base-package: cn.like.cloud.module.infra
   web:
     admin-ui:
-      url: http://dashboard.like.iocoder.cn # Admin 管理后台 UI 的地址
+      url: http://dashboard.like.cn # Admin 管理后台 UI 的地址
   swagger:
     title: 管理后台
     description: 提供管理员管理的所有功能
