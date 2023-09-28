@@ -31,6 +31,7 @@
         <module>like-spring-boot-starter-biz-tenant</module>
         <module>like-spring-boot-starter-biz-error-code</module>
         <module>like-spring-boot-starter-captcha</module>
+        <module>like-spring-boot-starter-biz-data-permission</module>
     </modules>
 
     <artifactId>like-framework</artifactId>
