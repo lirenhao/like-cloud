@@ -10,6 +10,7 @@
     <modules>
         <module>like-dependencies</module>
         <module>like-framework</module>
+        <module>like-gateway</module>
         <module>like-module-infra</module>
         <module>like-module-system</module>
     </modules>
