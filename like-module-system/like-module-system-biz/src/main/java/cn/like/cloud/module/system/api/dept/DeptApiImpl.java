@@ -14,7 +14,7 @@ import java.util.List;
 
 import static cn.like.cloud.framework.common.pojo.CommonResult.success;
 
-@RestController // 提供 RESTful API 接口，给 Feign 调用
+@RestController // 提供 RestFull API 接口，给 Feign 调用
 @Validated
 public class DeptApiImpl implements DeptApi {
 

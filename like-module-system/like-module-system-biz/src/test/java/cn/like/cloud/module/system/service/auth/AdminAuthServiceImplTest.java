@@ -6,6 +6,7 @@ import cn.like.cloud.framework.common.enums.UserTypeEnum;
 import cn.like.cloud.framework.test.core.ut.BaseDbUnitTest;
 import cn.like.cloud.module.system.api.sms.SmsCodeApi;
 import cn.like.cloud.module.system.api.social.dto.SocialUserBindReqDTO;
+import cn.like.cloud.module.system.api.social.dto.SocialUserRespDTO;
 import cn.like.cloud.module.system.controller.admin.auth.vo.*;
 import cn.like.cloud.module.system.dal.dataobject.oauth2.OAuth2AccessTokenDO;
 import cn.like.cloud.module.system.dal.dataobject.user.AdminUserDO;
@@ -235,8 +236,8 @@ public class AdminAuthServiceImplTest extends BaseDbUnitTest {
         AuthSocialLoginReqVO reqVO = randomPojo(AuthSocialLoginReqVO.class);
         // mock 方法（绑定的用户编号）
         Long userId = 1L;
-        when(socialUserService.getBindUserId(eq(UserTypeEnum.ADMIN.getValue()), eq(reqVO.getType()),
-                eq(reqVO.getCode()), eq(reqVO.getState()))).thenReturn(userId);
+        when(socialUserService.getSocialUser(eq(UserTypeEnum.ADMIN.getValue()), eq(reqVO.getType()),
+                eq(reqVO.getCode()), eq(reqVO.getState()))).thenReturn(new SocialUserRespDTO(randomString(), userId));
         // mock（用户）
         AdminUserDO user = randomPojo(AdminUserDO.class, o -> o.setId(userId));
         when(userService.getUser(eq(userId))).thenReturn(user);

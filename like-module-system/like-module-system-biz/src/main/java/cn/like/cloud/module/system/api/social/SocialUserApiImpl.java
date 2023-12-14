@@ -2,6 +2,7 @@ package cn.like.cloud.module.system.api.social;
 
 import cn.like.cloud.framework.common.pojo.CommonResult;
 import cn.like.cloud.module.system.api.social.dto.SocialUserBindReqDTO;
+import cn.like.cloud.module.system.api.social.dto.SocialUserRespDTO;
 import cn.like.cloud.module.system.api.social.dto.SocialUserUnbindReqDTO;
 import cn.like.cloud.module.system.service.social.SocialUserService;
 import org.springframework.validation.annotation.Validated;
@@ -19,26 +20,20 @@ public class SocialUserApiImpl implements SocialUserApi {
     private SocialUserService socialUserService;
 
     @Override
-    public CommonResult<String> getAuthorizeUrl(Integer type, String redirectUri) {
-        return success(socialUserService.getAuthorizeUrl(type, redirectUri));
-    }
-
-    @Override
-    public CommonResult<Boolean> bindSocialUser(SocialUserBindReqDTO reqDTO) {
-        socialUserService.bindSocialUser(reqDTO);
-        return success(true);
+    public CommonResult<String> bindSocialUser(SocialUserBindReqDTO reqDTO) {
+        return success(socialUserService.bindSocialUser(reqDTO));
     }
 
     @Override
     public CommonResult<Boolean> unbindSocialUser(SocialUserUnbindReqDTO reqDTO) {
         socialUserService.unbindSocialUser(reqDTO.getUserId(), reqDTO.getUserType(),
-                reqDTO.getType(), reqDTO.getUnionId());
+                reqDTO.getSocialType(), reqDTO.getOpenid());
         return success(true);
     }
 
     @Override
-    public CommonResult<Long> getBindUserId(Integer userType, Integer type, String code, String state) {
-       return success(socialUserService.getBindUserId(userType, type, code, state));
+    public CommonResult<SocialUserRespDTO> getSocialUser(Integer userType, Integer socialType, String code, String state) {
+       return success(socialUserService.getSocialUser(userType, socialType, code, state));
     }
 
 }

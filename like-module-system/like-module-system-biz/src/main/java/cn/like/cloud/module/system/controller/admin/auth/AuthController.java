@@ -1,10 +1,13 @@
 package cn.like.cloud.module.system.controller.admin.auth;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.like.cloud.framework.common.enums.CommonStatusEnum;
+import cn.like.cloud.framework.common.enums.UserTypeEnum;
 import cn.like.cloud.framework.common.pojo.CommonResult;
 import cn.like.cloud.framework.operatelog.core.annotations.OperateLog;
 import cn.like.cloud.framework.security.config.SecurityProperties;
+import cn.like.cloud.framework.security.core.util.SecurityFrameworkUtils;
 import cn.like.cloud.module.system.controller.admin.auth.vo.*;
 import cn.like.cloud.module.system.convert.auth.AuthConvert;
 import cn.like.cloud.module.system.dal.dataobject.permission.MenuDO;
@@ -15,12 +18,12 @@ import cn.like.cloud.module.system.service.auth.AdminAuthService;
 import cn.like.cloud.module.system.service.permission.MenuService;
 import cn.like.cloud.module.system.service.permission.PermissionService;
 import cn.like.cloud.module.system.service.permission.RoleService;
-import cn.like.cloud.module.system.service.social.SocialUserService;
+import cn.like.cloud.module.system.service.social.SocialClientService;
 import cn.like.cloud.module.system.service.user.AdminUserService;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
-import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,13 +32,13 @@ import javax.annotation.Resource;
 import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
 import static cn.like.cloud.framework.common.pojo.CommonResult.success;
 import static cn.like.cloud.framework.common.util.collection.CollectionUtils.convertSet;
 import static cn.like.cloud.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
-import static cn.like.cloud.framework.security.core.util.SecurityFrameworkUtils.obtainAuthorization;
 
 @Tag(name = "管理后台 - 认证")
 @RestController
@@ -55,7 +58,7 @@ public class AuthController {
     @Resource
     private PermissionService permissionService;
     @Resource
-    private SocialUserService socialUserService;
+    private SocialClientService socialClientService;
 
     @Resource
     private SecurityProperties securityProperties;
@@ -73,7 +76,8 @@ public class AuthController {
     @Operation(summary = "登出系统")
     @OperateLog(enable = false) // 避免 Post 请求被记录操作日志
     public CommonResult<Boolean> logout(HttpServletRequest request) {
-        String token = obtainAuthorization(request, securityProperties.getTokenHeader());
+        String token = SecurityFrameworkUtils.obtainAuthorization(request,
+                securityProperties.getTokenHeader(), securityProperties.getTokenParameter());
         if (StrUtil.isNotBlank(token)) {
             authService.logout(token, LoginLogTypeEnum.LOGOUT_SELF.getType());
         }
@@ -100,6 +104,9 @@ public class AuthController {
 
         // 1.2 获得角色列表
         Set<Long> roleIds = permissionService.getUserRoleIdListByUserId(getLoginUserId());
+        if (CollUtil.isEmpty(roleIds)) {
+            return success(AuthConvert.INSTANCE.convert(user, Collections.emptyList(), Collections.emptyList()));
+        }
         List<RoleDO> roles = roleService.getRoleList(roleIds);
         roles.removeIf(role -> !CommonStatusEnum.ENABLE.getStatus().equals(role.getStatus())); // 移除禁用的角色
 
@@ -142,7 +149,8 @@ public class AuthController {
     })
     public CommonResult<String> socialLogin(@RequestParam("type") Integer type,
                                             @RequestParam("redirectUri") String redirectUri) {
-        return CommonResult.success(socialUserService.getAuthorizeUrl(type, redirectUri));
+        return success(socialClientService.getAuthorizeUrl(
+                type, UserTypeEnum.ADMIN.getValue(), redirectUri));
     }
 
     @PostMapping("/social-login")

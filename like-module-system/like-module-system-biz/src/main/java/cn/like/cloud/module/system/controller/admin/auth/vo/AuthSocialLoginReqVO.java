@@ -3,7 +3,6 @@ package cn.like.cloud.module.system.controller.admin.auth.vo;
 import cn.like.cloud.framework.common.validation.InEnum;
 import cn.like.cloud.module.system.enums.social.SocialTypeEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -51,7 +51,6 @@ import static org.mockito.Mockito.*;
 /**
  * {@link TenantServiceImpl} 的单元测试类
  *
- * @author 芋道源码
  */
 @Import(TenantServiceImpl.class)
 public class TenantServiceImplTest extends BaseDbUnitTest {

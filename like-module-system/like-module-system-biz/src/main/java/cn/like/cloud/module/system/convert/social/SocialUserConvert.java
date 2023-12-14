@@ -2,8 +2,8 @@ package cn.like.cloud.module.system.convert.social;
 
 import cn.like.cloud.module.system.api.social.dto.SocialUserBindReqDTO;
 import cn.like.cloud.module.system.api.social.dto.SocialUserUnbindReqDTO;
-import cn.like.cloud.module.system.controller.admin.socail.vo.SocialUserBindReqVO;
-import cn.like.cloud.module.system.controller.admin.socail.vo.SocialUserUnbindReqVO;
+import cn.like.cloud.module.system.controller.admin.socail.vo.user.SocialUserBindReqVO;
+import cn.like.cloud.module.system.controller.admin.socail.vo.user.SocialUserUnbindReqVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

@@ -104,8 +104,8 @@ spring:
 logging:
   level:
     # 配置自己写的 MyBatis Mapper 打印日志
-    cn.iocoder.yudao.module.infra.dal.mysql: DEBUG
-    cn.iocoder.yudao.module.infra.dal.mysql.file.FileConfigMapper: INFO # 配置 FileConfigMapper 的日志级别为 info
+    cn.like.cloud.module.infra.dal.mysql: DEBUG
+    cn.like.cloud.module.infra.dal.mysql.file.FileConfigMapper: INFO # 配置 FileConfigMapper 的日志级别为 info
 
 --- #################### 自定义相关配置 ####################
 

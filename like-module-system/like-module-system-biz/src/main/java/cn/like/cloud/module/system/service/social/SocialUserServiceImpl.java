@@ -2,32 +2,32 @@ package cn.like.cloud.module.system.service.social;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.Assert;
-import cn.like.cloud.framework.common.util.collection.CollectionUtils;
-import cn.like.cloud.framework.common.util.http.HttpUtils;
-import cn.like.cloud.framework.social.core.LikeAuthRequestFactory;
+import cn.like.cloud.framework.common.exception.ServiceException;
+import cn.like.cloud.framework.common.pojo.PageResult;
 import cn.like.cloud.module.system.api.social.dto.SocialUserBindReqDTO;
+import cn.like.cloud.module.system.api.social.dto.SocialUserRespDTO;
+import cn.like.cloud.module.system.controller.admin.socail.vo.user.SocialUserPageReqVO;
 import cn.like.cloud.module.system.dal.dataobject.social.SocialUserBindDO;
 import cn.like.cloud.module.system.dal.dataobject.social.SocialUserDO;
 import cn.like.cloud.module.system.dal.mysql.social.SocialUserBindMapper;
 import cn.like.cloud.module.system.dal.mysql.social.SocialUserMapper;
 import cn.like.cloud.module.system.enums.social.SocialTypeEnum;
-import com.xingyuv.jushauth.model.AuthCallback;
-import com.xingyuv.jushauth.model.AuthResponse;
 import com.xingyuv.jushauth.model.AuthUser;
-import com.xingyuv.jushauth.request.AuthRequest;
-import com.xingyuv.jushauth.utils.AuthStateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.Resource;
+import javax.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.List;
 
 import static cn.like.cloud.framework.common.exception.util.ServiceExceptionUtil.exception;
+import static cn.like.cloud.framework.common.util.collection.CollectionUtils.convertSet;
 import static cn.like.cloud.framework.common.util.json.JsonUtils.toJsonString;
-import static cn.like.cloud.module.system.enums.ErrorCodeConstants.*;
+import static cn.like.cloud.module.system.enums.ErrorCodeConstants.AUTH_THIRD_LOGIN_NOT_BIND;
+import static cn.like.cloud.module.system.enums.ErrorCodeConstants.SOCIAL_USER_NOT_FOUND;
 
 /**
  * 社交用户 Service 实现类
@@ -37,51 +37,13 @@ import static cn.like.cloud.module.system.enums.ErrorCodeConstants.*;
 @Slf4j
 public class SocialUserServiceImpl implements SocialUserService {
 
-    @Resource// 由于自定义了 LikeAuthRequestFactory 无法覆盖默认的 AuthRequestFactory，所以只能注入它
-    private LikeAuthRequestFactory likeAuthRequestFactory;
-
     @Resource
     private SocialUserBindMapper socialUserBindMapper;
     @Resource
     private SocialUserMapper socialUserMapper;
 
-    @Override
-    public String getAuthorizeUrl(Integer type, String redirectUri) {
-        // 获得对应的 AuthRequest 实现
-        AuthRequest authRequest = likeAuthRequestFactory.get(SocialTypeEnum.valueOfType(type).getSource());
-        // 生成跳转地址
-        String authorizeUri = authRequest.authorize(AuthStateUtils.createState());
-        return HttpUtils.replaceUrlQuery(authorizeUri, "redirect_uri", redirectUri);
-    }
-
-    @Override
-    public SocialUserDO authSocialUser(Integer type, String code, String state) {
-        // 优先从 DB 中获取，因为 code 有且可以使用一次。
-        // 在社交登录时，当未绑定 User 时，需要绑定登录，此时需要 code 使用两次
-        SocialUserDO socialUser = socialUserMapper.selectByTypeAndCodeAnState(type, code, state);
-        if (socialUser != null) {
-            return socialUser;
-        }
-
-        // 请求获取
-        AuthUser authUser = getAuthUser(type, code, state);
-        Assert.notNull(authUser, "三方用户不能为空");
-
-        // 保存到 DB 中
-        socialUser = socialUserMapper.selectByTypeAndOpenid(type, authUser.getUuid());
-        if (socialUser == null) {
-            socialUser = new SocialUserDO();
-        }
-        socialUser.setType(type).setCode(code).setState(state) // 需要保存 code + state 字段，保证后续可查询
-                .setOpenid(authUser.getUuid()).setToken(authUser.getToken().getAccessToken()).setRawTokenInfo((toJsonString(authUser.getToken())))
-                .setNickname(authUser.getNickname()).setAvatar(authUser.getAvatar()).setRawUserInfo(toJsonString(authUser.getRawUserInfo()));
-        if (socialUser.getId() == null) {
-            socialUserMapper.insert(socialUser);
-        } else {
-            socialUserMapper.updateById(socialUser);
-        }
-        return socialUser;
-    }
+    @Resource
+    private SocialClientService socialClientService;
 
     @Override
     public List<SocialUserDO> getSocialUserList(Long userId, Integer userType) {
@@ -91,14 +53,15 @@ public class SocialUserServiceImpl implements SocialUserService {
             return Collections.emptyList();
         }
         // 获得社交用户
-        return socialUserMapper.selectBatchIds(CollectionUtils.convertSet(socialUserBinds, SocialUserBindDO::getSocialUserId));
+        return socialUserMapper.selectBatchIds(convertSet(socialUserBinds, SocialUserBindDO::getSocialUserId));
     }
 
     @Override
-    @Transactional
-    public void bindSocialUser(SocialUserBindReqDTO reqDTO) {
+    @Transactional(rollbackFor = Exception.class)
+    public String bindSocialUser(SocialUserBindReqDTO reqDTO) {
         // 获得社交用户
-        SocialUserDO socialUser = authSocialUser(reqDTO.getType(), reqDTO.getCode(), reqDTO.getState());
+        SocialUserDO socialUser = authSocialUser(reqDTO.getSocialType(), reqDTO.getUserType(),
+                reqDTO.getCode(), reqDTO.getState());
         Assert.notNull(socialUser, "社交用户不能为空");
 
         // 社交用户可能之前绑定过别的用户，需要进行解绑
@@ -113,12 +76,13 @@ public class SocialUserServiceImpl implements SocialUserService {
                 .userId(reqDTO.getUserId()).userType(reqDTO.getUserType())
                 .socialUserId(socialUser.getId()).socialType(socialUser.getType()).build();
         socialUserBindMapper.insert(socialUserBind);
+        return socialUser.getOpenid();
     }
 
     @Override
-    public void unbindSocialUser(Long userId, Integer userType, Integer type, String openid) {
+    public void unbindSocialUser(Long userId, Integer userType, Integer socialType, String openid) {
         // 获得 openid 对应的 SocialUserDO 社交用户
-        SocialUserDO socialUser = socialUserMapper.selectByTypeAndOpenid(type, openid);
+        SocialUserDO socialUser = socialUserMapper.selectByTypeAndOpenid(socialType, openid);
         if (socialUser == null) {
             throw exception(SOCIAL_USER_NOT_FOUND);
         }
@@ -128,9 +92,9 @@ public class SocialUserServiceImpl implements SocialUserService {
     }
 
     @Override
-    public Long getBindUserId(Integer userType, Integer type, String code, String state) {
+    public SocialUserRespDTO getSocialUser(Integer userType, Integer socialType, String code, String state) {
         // 获得社交用户
-        SocialUserDO socialUser = authSocialUser(type, code, state);
+        SocialUserDO socialUser = authSocialUser(socialType, userType, code, state);
         Assert.notNull(socialUser, "社交用户不能为空");
 
         // 如果未绑定的社交用户，则无法自动登录，进行报错
@@ -139,27 +103,58 @@ public class SocialUserServiceImpl implements SocialUserService {
         if (socialUserBind == null) {
             throw exception(AUTH_THIRD_LOGIN_NOT_BIND);
         }
-        return socialUserBind.getUserId();
+        return new SocialUserRespDTO(socialUser.getOpenid(), socialUserBind.getUserId());
     }
 
     /**
-     * 请求社交平台，获得授权的用户
+     * 授权获得对应的社交用户
+     * 如果授权失败，则会抛出 {@link ServiceException} 异常
      *
-     * @param type  社交平台的类型
-     * @param code  授权码
-     * @param state 授权 state
-     * @return 授权的用户
+     * @param socialType 社交平台的类型 {@link SocialTypeEnum}
+     * @param userType 用户类型
+     * @param code     授权码
+     * @param state    state
+     * @return 授权用户
      */
-    private AuthUser getAuthUser(Integer type, String code, String state) {
-        AuthRequest authRequest = likeAuthRequestFactory.get(SocialTypeEnum.valueOfType(type).getSource());
-        AuthCallback authCallback = AuthCallback.builder().code(code).state(state).build();
-        AuthResponse<?> authResponse = authRequest.login(authCallback);
-        log.info("[getAuthUser][请求社交平台 type({}) request({}) response({})]", type,
-                toJsonString(authCallback), toJsonString(authResponse));
-        if (!authResponse.ok()) {
-            throw exception(SOCIAL_USER_AUTH_FAILURE, authResponse.getMsg());
+    @NotNull
+    public SocialUserDO authSocialUser(Integer socialType, Integer userType, String code, String state) {
+        // 优先从 DB 中获取，因为 code 有且可以使用一次。
+        // 在社交登录时，当未绑定 User 时，需要绑定登录，此时需要 code 使用两次
+        SocialUserDO socialUser = socialUserMapper.selectByTypeAndCodeAnState(socialType, code, state);
+        if (socialUser != null) {
+            return socialUser;
         }
-        return (AuthUser) authResponse.getData();
+
+        // 请求获取
+        AuthUser authUser = socialClientService.getAuthUser(socialType, userType, code, state);
+        Assert.notNull(authUser, "三方用户不能为空");
+
+        // 保存到 DB 中
+        socialUser = socialUserMapper.selectByTypeAndOpenid(socialType, authUser.getUuid());
+        if (socialUser == null) {
+            socialUser = new SocialUserDO();
+        }
+        socialUser.setType(socialType).setCode(code).setState(state) // 需要保存 code + state 字段，保证后续可查询
+                .setOpenid(authUser.getUuid()).setToken(authUser.getToken().getAccessToken()).setRawTokenInfo((toJsonString(authUser.getToken())))
+                .setNickname(authUser.getNickname()).setAvatar(authUser.getAvatar()).setRawUserInfo(toJsonString(authUser.getRawUserInfo()));
+        if (socialUser.getId() == null) {
+            socialUserMapper.insert(socialUser);
+        } else {
+            socialUserMapper.updateById(socialUser);
+        }
+        return socialUser;
+    }
+
+    // ==================== 社交用户 CRUD ====================
+
+    @Override
+    public SocialUserDO getSocialUser(Long id) {
+        return socialUserMapper.selectById(id);
+    }
+
+    @Override
+    public PageResult<SocialUserDO> getSocialUserPage(SocialUserPageReqVO pageReqVO) {
+        return socialUserMapper.selectPage(pageReqVO);
     }
 
 }

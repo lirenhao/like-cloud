@@ -31,7 +31,7 @@ public class WebProperties {
     public static class Api {
 
         /**
-         * API 前缀，实现所有 Controller 提供的 RESTFul API 的统一前缀
+         * API 前缀，实现所有 Controller 提供的 RestFull API 的统一前缀
          * <p>
          * <p>
          * 意义：通过该前缀，避免 Swagger、Actuator 意外通过 Nginx 暴露出来给外部，带来安全性问题

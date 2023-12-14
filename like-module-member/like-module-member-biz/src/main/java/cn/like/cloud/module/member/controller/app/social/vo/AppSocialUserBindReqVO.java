@@ -1,7 +1,7 @@
-package cn.like.cloud.module.system.controller.admin.socail.vo;
+package cn.like.cloud.module.member.controller.app.social.vo;
 
-import cn.like.cloud.module.system.enums.social.SocialTypeEnum;
 import cn.like.cloud.framework.common.validation.InEnum;
+import cn.like.cloud.module.system.enums.social.SocialTypeEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,14 +11,14 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-@Schema(description = "管理后台 - 社交绑定 Request VO，使用 code 授权码")
+@Schema(description = "用户 APP - 社交绑定 Request VO，使用 code 授权码")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SocialUserBindReqVO {
+public class AppSocialUserBindReqVO {
 
-    @Schema(description = "社交平台的类型，参见 UserSocialTypeEnum 枚举值", requiredMode = Schema.RequiredMode.REQUIRED, example = "10")
+    @Schema(description = "社交平台的类型，参见 SocialTypeEnum 枚举值", requiredMode = Schema.RequiredMode.REQUIRED, example = "10")
     @InEnum(SocialTypeEnum.class)
     @NotNull(message = "社交平台的类型不能为空")
     private Integer type;

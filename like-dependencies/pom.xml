@@ -111,12 +111,17 @@
             <!-- 业务组件 -->
             <dependency>
                 <groupId>cn.like.cloud</groupId>
-                <artifactId>like-module-infra-api</artifactId> <!-- 需要使用它，进行操作日志的记录 -->
+                <artifactId>like-module-infra-api</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>cn.like.cloud</groupId>
-                <artifactId>like-module-system-api</artifactId> <!-- 需要使用它，进行 Token 的校验 -->
+                <artifactId>like-module-system-api</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.like.cloud</groupId>
+                <artifactId>like-module-member-api</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
@@ -638,6 +643,11 @@
             <dependency>
                 <groupId>com.github.binarywang</groupId>
                 <artifactId>wx-java-mp-spring-boot-starter</artifactId>
+                <version>${weixin-java.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>wx-java-miniapp-spring-boot-starter</artifactId>
                 <version>${weixin-java.version}</version>
             </dependency>
 

@@ -3,6 +3,7 @@ package cn.like.cloud.module.system.api.social.dto;
 import cn.like.cloud.framework.common.enums.UserTypeEnum;
 import cn.like.cloud.framework.common.validation.InEnum;
 import cn.like.cloud.module.system.enums.social.SocialTypeEnum;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,43 +11,28 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-/**
- * 取消绑定社交用户 Request DTO
- */
+@Schema(description = "RPC 服务 - 取消绑定社交用户 Request DTO")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class SocialUserBindReqDTO {
 
-    /**
-     * 用户编号
-     */
+    @Schema(description = "用户编号", requiredMode = Schema.RequiredMode.REQUIRED, example = "1024")
     @NotNull(message = "用户编号不能为空")
     private Long userId;
-
-    /**
-     * 用户类型
-     */
+    @Schema(description = "用户类型", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
     @InEnum(UserTypeEnum.class)
     @NotNull(message = "用户类型不能为空")
     private Integer userType;
 
-    /**
-     * 社交平台的类型
-     */
+    @Schema(description = "社交平台的类型", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
     @InEnum(SocialTypeEnum.class)
     @NotNull(message = "社交平台的类型不能为空")
-    private Integer type;
-
-    /**
-     * 授权码
-     */
+    private Integer socialType;
+    @Schema(description = "授权码", requiredMode = Schema.RequiredMode.REQUIRED, example = "zsw")
     @NotEmpty(message = "授权码不能为空")
     private String code;
-
-    /**
-     * state
-     */
+    @Schema(description = "state", requiredMode = Schema.RequiredMode.REQUIRED, example = "qtw")
     @NotEmpty(message = "state 不能为空")
     private String state;
 
